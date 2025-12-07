@@ -151,7 +151,7 @@ function App() {
         "Led end-to-end development of the BD app dashboard with a fee-upgrade flow, driving a 2% revenue increase.",
         "Delivered an OCR-powered billing module, bringing billing errors down to under 1%.",
         "Automated settlement and receipts through Razorpay APIs, cutting TAT to 24–48 hours.",
-        "Launched a POC tracking and feedback system that grew leads by 5% and improved lead-to-campaign conversions by 10%.",
+        "Launched a POC tracking and feedback system that grew leads by 3% and improved lead-to-campaign conversions by 10%.",
         "Built a WhatsApp consent system increasing GMV by 5%.",
         "Automated chargeback/refund syncing with Razorpay APIs, raising internal–PG match rates from ~90% to 97%."
       ]
