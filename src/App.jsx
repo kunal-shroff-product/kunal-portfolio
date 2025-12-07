@@ -145,7 +145,7 @@ function App() {
       id: 'impactguru',
       role: "Associate Product Manager",
       company: "Impactguru",
-      period: "Oct 2024 - Present",
+      period: "Oct 2024 - Nov 2025",
       color: "blue",
       bullets: [
         "Led end-to-end development of the BD app dashboard with a fee-upgrade flow, driving a 2% revenue increase.",
@@ -282,7 +282,7 @@ function App() {
             <div className="timeline-list">
               {['impactguru', 'skillmatics', 'laaj'].map((id) => {
                  const job = [
-                    { id: 'impactguru', role: "Associate Product Manager", company: "Impactguru", period: "Oct 2024 - Present" },
+                    { id: 'impactguru', role: "Associate Product Manager", company: "Impactguru", period: "Oct 2024 - Nov 2025" },
                     { id: 'skillmatics', role: "Product Management Intern", company: "Skillmatics", period: "Apr 2024 - Jun 2024" },
                     { id: 'laaj', role: "Assistant Portfolio Manager", company: "Laaj International", period: "Mar 2021 - Feb 2024" }
                  ].find(j => j.id === id);
