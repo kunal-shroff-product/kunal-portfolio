@@ -139,8 +139,20 @@ const ImageModal = ({ isOpen, onClose, imgSrc }) => {
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [showCertModal, setShowCertModal] = useState(false);
-  const [selectedJobId, setSelectedJobId] = useState('impactguru');
+  const [selectedJobId, setSelectedJobId] = useState('midday');
   const selectedJob = [
+    {
+      id: 'midday',
+      role: "Associate Product Manager",
+      company: "Mid-day",
+      period: "Nov 2025 - Present",
+      color: "blue",
+      bullets: [
+        "Owned the complete website revamp (UI/UX & information architecture), now in beta, focused on improving content structure, user flow, and            overall engagement experience.",
+        "Conceptualized and launched high-traffic event microsites (T20, Valentine’s Day, other key calendar events), driving a 2% increase in               overall users and page views.",
+        "Integrated GIS-based enhancements to streamline login & sign-up flows, reducing friction in user onboarding and improving authentication             efficiency.",
+      ]
+    },
     {
       id: 'impactguru',
       role: "Associate Product Manager",
@@ -194,7 +206,7 @@ function App() {
   };
 
   return (
-    <div style={{position: 'relative', paddingTop: '80px'}}>
+    <div style={{position: 'relative', paddingTop: '25px'}}>
       <div className="gradient-bg"></div>
       <Navbar />
       <ContactModal isOpen={showModal} onClose={() => setShowModal(false)} />
@@ -227,6 +239,10 @@ function App() {
         <BentoCard id="impact">
           <h2>Key Impact</h2>
           <div className="impact-list">
+            <div className="impact-item" onClick={() => handleImpactClick('midday')} style={{cursor:'pointer'}}>
+               <div className="icon-box"><Target size={20} color="#3b82f6" /></div>
+               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+3% Page Views</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>Event Microsites</div></div>
+            </div>
             <div className="impact-item" onClick={() => handleImpactClick('impactguru')} style={{cursor:'pointer'}}>
                <div className="icon-box"><Zap size={20} color="#E67847" /></div>
                <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+2% Revenue</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>BD App Fees Upgrade</div></div>
@@ -235,22 +251,7 @@ function App() {
                <div className="icon-box"><TrendingUp size={20} color="#10b981" /></div>
                <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+5% GMV</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>WhatsApp Consent System</div></div>
             </div>
-            <div className="impact-item" onClick={() => handleImpactClick('impactguru')} style={{cursor:'pointer'}}>
-               <div className="icon-box"><Clock size={20} color="#f59e0b" /></div>
-               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>24-48h TAT</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>Settlement Completion</div></div>
-            </div>
-            <div className="impact-item" onClick={() => handleImpactClick('impactguru')} style={{cursor:'pointer'}}>
-               <div className="icon-box"><Target size={20} color="#3b82f6" /></div>
-               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+10% Funnel</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>Lead-to-Campaign</div></div>
-            </div>
-            <div className="impact-item" onClick={() => handleImpactClick('impactguru')} style={{cursor:'pointer'}}>
-               <div className="icon-box"><CheckCircle2 size={20} color="#8b5cf6" /></div>
-               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>97% Accuracy</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>Auto Chargeback & Refund</div></div>
-            </div>
-            <div className="impact-item" onClick={() => handleImpactClick('laaj')} style={{cursor:'pointer'}}>
-               <div className="icon-box"><BarChart3 size={20} color="#ef4444" /></div>
-               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>40% Returns</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>Portfolio Management</div></div>
-            </div>
+            
           </div>
         </BentoCard>
 
@@ -258,11 +259,9 @@ function App() {
         <BentoCard span={3} className="hero-mode" id="about">
            <h2 style={{fontSize: '2rem', marginBottom: '1.5rem', color: '#1a1a1a'}}>About Me</h2>
            <p style={{color: '#594632', fontWeight: '700', fontSize: '1.2rem', lineHeight: '1.8', maxWidth: '900px'}}>
-             I am a product manager who thrives at the intersection of data, design, and user psychology, 
-             currently driving key charters in Settlements, Revenue, and the BD App at ImpactGuru.I specialize in building scalable systems, 
-             automating complex workflows, and improving financial operations through product, data, and API-driven solutions.
+             I am a product manager who thrives at the intersection of data, design, and user psychology. Currently at Mid-Day, I’m leading a full-                scale website revamp to enhance user experience, engagement, and content discoverability across the platform.At ImpactGuru, I led key               charters across Settlements, Revenue, and the BD App, building scalable systems and automating complex financial workflows through API-              driven solutions.
              <br/><br/>
-             Across ImpactGuru, and Skillmatics, I’ve shipped products end-to-end—from dashboards to PDP redesigns and WhatsApp-based growth systems. 
+             Across organisations I’ve shipped products end-to-end from dashboards to PDP redesigns and WhatsApp-based growth systems. 
              My work has improved conversion rates, reduced operational effort, and enhanced stability across internal and customer-facing systems. 
              Before transitioning into product, I managed a ₹10 Cr portfolio at Laaj International, strengthening my analytical and 
              strategic decision-making foundation.
@@ -280,8 +279,9 @@ function App() {
           </div>
           <div className="split-timeline">
             <div className="timeline-list">
-              {['impactguru', 'skillmatics', 'laaj'].map((id) => {
+              {['midday','impactguru', 'skillmatics', 'laaj'].map((id) => {
                  const job = [
+                    { id: 'midday', role: "Associate Product Manager", company: "Mid-day", period: "Nov 2025 - Present" },
                     { id: 'impactguru', role: "Associate Product Manager", company: "Impactguru", period: "Oct 2024 - Nov 2025" },
                     { id: 'skillmatics', role: "Product Management Intern", company: "Skillmatics", period: "Apr 2024 - Jun 2024" },
                     { id: 'laaj', role: "Assistant Portfolio Manager", company: "Laaj International", period: "Mar 2021 - Feb 2024" }
