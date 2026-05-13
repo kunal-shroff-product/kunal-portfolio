@@ -149,8 +149,9 @@ function App() {
       color: "blue",
       bullets: [
         "Owned the complete website revamp (UI/UX & information architecture), now in beta, focused on improving content structure, user flow, and            overall engagement experience.",
-        "Conceptualized and launched high-traffic event microsites (T20, Valentine’s Day, other key calendar events), driving a 2% increase in               overall users and page views.",
-        "Integrated GIS-based enhancements to streamline login & sign-up flows, reducing friction in user onboarding and improving authentication             efficiency.",
+        "Conceptualized and launched high-traffic event microsites (T20 World-cup, Valentine’s Day, IPL 2026),bringing in ~2% revenue and ~3% pageviews.",
+        "Introduced GIS-based enhancements to streamline login and sign-up flows, eliminating onboarding friction and driving user adoption from 0 to a 25K+ active user base.",
+        "Built an in-house HR module and careers portal, replacing a third-party solution and saving ₹3L+ annually in operational costs.",
       ]
     },
     {
