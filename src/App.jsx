@@ -1,27 +1,46 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './App.css'; 
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import './App.css';
 import { TrendingUp, BarChart3, Users, ArrowUpRight, FolderOpen, Github, Linkedin, Mail, Briefcase, FileText, Code2, GraduationCap, Zap, Clock, Target, Download, Layers, LayoutTemplate, Award, CheckCircle2, Box, Laptop, UserCheck, Menu, X, MapPin, Phone } from "lucide-react";
+
+// --- SCROLL HELPER FOR HASH LINKS ---
+const ScrollToHash = () => {
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [hash]);
+  return null;
+};
 
 // --- NAVBAR COMPONENT ---
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const links = [
-    { name: "Home", id: "home" },
-    { name: "About Me", id: "about" }, // Added About Me
-    { name: "Impact", id: "impact" },
-    { name: "Experience", id: "work" },
-    { name: "Projects", id: "projects" },
-    { name: "Education", id: "education" }
+    { name: "Home", path: "/" },
+    { name: "About Me", path: "/about" },
+    { name: "Impact", path: "/#impact" },
+    { name: "Experience", path: "/#work" },
+    { name: "Education", path: "/#education" },
+    { name: "Skills", path: "/#skills" },
   ];
 
   return (
     <>
       <nav className="glass-nav">
         <div className="nav-content">
-          <a href="#home" className="nav-logo">Kunal</a>
+          <Link to="/" className="nav-logo">Kunal</Link>
           <div className="desktop-links">
             {links.map((link) => (
-              <a key={link.name} href={`#${link.id}`} className="nav-link">{link.name}</a>
+              <Link key={link.name} to={link.path} className="nav-link">{link.name}</Link>
             ))}
           </div>
           <button className="hamburger-btn" onClick={() => setIsOpen(!isOpen)}>
@@ -32,7 +51,9 @@ const Navbar = () => {
       {isOpen && (
         <div className="mobile-menu">
           {links.map((link) => (
-            <a key={link.name} href={`#${link.id}`} className="mobile-nav-link" onClick={() => setIsOpen(false)}>{link.name}</a>
+            <Link key={link.name} to={link.path} className="mobile-nav-link" onClick={() => setIsOpen(false)}>
+              {link.name}
+            </Link>
           ))}
         </div>
       )}
@@ -78,9 +99,48 @@ const ContactModal = ({ isOpen, onClose }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}><X size={24} /></button>
         <h2 style={{marginBottom: '2rem', fontSize: '1.8rem'}}>Get in Touch</h2>
-        <div className="modal-row"><div className="section-icon-box"><Mail size={20} /></div><div><div className="modal-label">Gmail</div><div className="modal-value">kunalshrofff@gmail.com</div></div></div>
-        <div className="modal-row"><div className="section-icon-box"><Linkedin size={20} /></div><div><div className="modal-label">LinkedIn</div><a href="#" className="modal-value" style={{textDecoration:'none', color:'#1a1a1a'}}>https://www.linkedin.com/in/kunal-shroff-485b4b1b4</a></div></div>
-        <div className="modal-row"><div className="section-icon-box"><Phone size={20} /></div><div><div className="modal-label">Phone</div><div className="modal-value">+91 8779673427</div></div></div>
+        <div className="modal-row">
+          <div className="section-icon-box"><Mail size={20} /></div>
+          <div>
+            <div className="modal-label">Gmail</div>
+            <a 
+              href="mailto:kunalshrofff@gmail.com" 
+              className="modal-value" 
+              style={{textDecoration:'none', color:'#1a1a1a'}}
+            >
+              kunalshrofff@gmail.com
+            </a>
+          </div>
+        </div>
+        <div className="modal-row">
+          <div className="section-icon-box"><Linkedin size={20} /></div>
+          <div>
+            <div className="modal-label">LinkedIn</div>
+            <a 
+              href="https://www.linkedin.com/in/kunal-shroff-485b4b1b4" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="modal-value" 
+              style={{textDecoration:'none', color:'#1a1a1a', wordBreak: 'break-all'}}
+            >
+              linkedin.com/in/kunal-shroff-485b4b1b4
+            </a>
+          </div>
+        </div>
+        <div className="modal-row">
+          <div className="section-icon-box"><Phone size={20} /></div>
+          <div>
+            <div className="modal-label">Phone</div>
+            {/* Swapped div for a 'tel:' link */}
+            <a 
+              href="tel:+918779673427" 
+              className="modal-value" 
+              style={{textDecoration:'none', color:'#1a1a1a'}}
+            >
+              +91 8779673427
+            </a>
+          </div>
+        </div>
         <div className="modal-row"><div className="section-icon-box"><MapPin size={20} /></div><div><div className="modal-label">Location</div><div className="modal-value">Mumbai, India</div></div></div>
       </div>
     </div>
@@ -97,69 +157,57 @@ const BentoCard = ({ children, className = "", span = 1, onClick, id }) => (
   </div>
 );
 
-// --- IMAGE PREVIEW MODAL (With Zoom) ---
+// --- IMAGE PREVIEW MODAL ---
 const ImageModal = ({ isOpen, onClose, imgSrc }) => {
   if (!isOpen) return null;
   return (
-    <div 
-      className="modal-overlay" 
-      onClick={onClose} 
-      style={{zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center'}}
-    >
-      <div 
-        className="zoom-image" 
-        style={{position: 'relative', maxWidth: '90%', maxHeight: '90%'}} 
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button 
-          className="modal-close" 
-          onClick={onClose} 
-          style={{top: '-20px', right: '-20px', background: 'white', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.2)'}}
-        >
+    <div className="modal-overlay" onClick={onClose} style={{zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <div className="zoom-image" style={{position: 'relative', maxWidth: '90%', maxHeight: '90%'}} onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} style={{top: '-20px', right: '-20px', background: 'white', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.2)'}}>
           <X size={24} />
         </button>
-        <img 
-          src={imgSrc} 
-          alt="Certificate Full View" 
-          style={{
-            maxWidth: '100%', 
-            maxHeight: '85vh', 
-            borderRadius: '12px', 
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
-          }} 
-        />
+        <img src={imgSrc} alt="Certificate Full View" style={{maxWidth: '100%', maxHeight: '85vh', borderRadius: '12px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'}} />
       </div>
     </div>
   );
 };
 
+// --- ABOUT PAGE COMPONENT ---
+const AboutPage = () => {
+  return (
+    <div className="bento-grid" style={{ minHeight: '70vh', alignContent: 'center', paddingBottom: '2rem' }}>
+      <BentoCard span={3} className="hero-mode" id="about">
+         <h2 style={{fontSize: '2.5rem', marginBottom: '2rem', color: '#1a1a1a'}}>About Me</h2>
+         <p style={{color: '#594632', fontWeight: '500', fontSize: '1.2rem', lineHeight: '1.6', maxWidth: '1300px'}}>
+           I am a product manager who thrives at the intersection of data, design, and user psychology. Currently at Mid-Day, I’m leading a full-scale website revamp to enhance user experience, engagement, and content discoverability across the platform. At ImpactGuru, I led key charters across Settlements, Revenue, and the BD App, building scalable systems and automating complex financial workflows through API-driven solutions.
+           <br/><br/>
+           Across organisations I’ve shipped products end-to-end from dashboards to PDP redesigns and WhatsApp-based growth systems. My work has improved conversion rates, reduced operational effort, and enhanced stability across internal and customer-facing systems. Before transitioning into product, I managed a ₹10 Cr portfolio at Laaj International, strengthening my analytical and strategic decision-making foundation.
+           <br/><br/>
+           When I'm not writing PRDs or analyzing SQL queries, you can find me debating the latest Football match. I’m also an active stock-market investor who enjoys combining product thinking with market insight.
+         </p>
+      </BentoCard>
+    </div>
+  );
+};
 
-
-// --- MAIN APP ---
-function App() {
+// --- HOME PAGE COMPONENT ---
+const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showCertModal, setShowCertModal] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState('midday');
+
   const selectedJob = [
     {
-      id: 'midday',
-      role: "Associate Product Manager",
-      company: "Mid-day",
-      period: "Nov 2025 - Present",
-      color: "blue",
+      id: 'midday', role: "Associate Product Manager", company: "Mid-day", period: "Nov 2025 - Present", color: "blue",
       bullets: [
-        "Owned the complete website revamp (UI/UX & information architecture), now in beta, focused on improving content structure, user flow, and            overall engagement experience.",
-        "Conceptualized and launched high-traffic event microsites (T20 World-cup, Valentine’s Day, IPL 2026),bringing in ~2% revenue and ~3% pageviews.",
-        "Introduced GIS-based enhancements to streamline login and sign-up flows, eliminating onboarding friction and driving user adoption from 0 to a 25K+ active user base.",
-        "Built an in-house HR module and careers portal, replacing a third-party solution and saving ₹3L+ annually in operational costs.",
+        "Owned the end-to-end website revamp (UI/UX & IA), now in beta, improving content structure, user flow, and engagement.",
+        "Conceptualized and launched high-traffic event microsites (T20 World Cup, Valentine’s Day, IPL 2026), contributing ~2% revenue and ~3% pageviews.",
+        "Implemented GIS-based login and sign-up enhancements, removing onboarding friction and scaling adoption to 25K+ active users.",
+        "Built an in-house HR module and careers portal, replacing a third-party solution and saving ₹3L+ annually."
       ]
     },
     {
-      id: 'impactguru',
-      role: "Associate Product Manager",
-      company: "Impactguru",
-      period: "Oct 2024 - Nov 2025",
-      color: "blue",
+      id: 'impactguru', role: "Associate Product Manager", company: "Impactguru", period: "Oct 2024 - Nov 2025", color: "blue",
       bullets: [
         "Led end-to-end development of the BD app dashboard with a fee-upgrade flow, driving a 2% revenue increase.",
         "Delivered an OCR-powered billing module, bringing billing errors down to under 1%.",
@@ -170,11 +218,7 @@ function App() {
       ]
     },
     {
-      id: 'skillmatics',
-      role: "Product Management Intern",
-      company: "Skillmatics",
-      period: "Apr 2024 - Jun 2024",
-      color: "yellow",
+      id: 'skillmatics', role: "Product Management Intern", company: "Skillmatics", period: "Apr 2024 - Jun 2024", color: "yellow",
       bullets: [
         "Revamped product display pages increasing conversion by 8%.",
         "Built bottom-nav bar improving site navigation.",
@@ -183,11 +227,7 @@ function App() {
       ]
     },
     {
-      id: 'laaj',
-      role: "Assistant Portfolio Manager",
-      company: "Laaj International",
-      period: "Mar 2021 - Feb 2024",
-      color: "green",
+      id: 'laaj', role: "Assistant Portfolio Manager", company: "Laaj International", period: "Mar 2021 - Feb 2024", color: "green",
       bullets: [
         "Achieved 40% returns in FY 23-24 managing 10 Cr+ portfolio.",
         "Developed risk management strategies for derivatives.",
@@ -197,40 +237,34 @@ function App() {
   ].find(j => j.id === selectedJobId);
 
   const [selectedEduId, setSelectedEduId] = useState('grad');
-  const selectedEdu = education => { // Helper not needed, using direct find below
-  };
-
   const workExRef = useRef(null);
+
   const handleImpactClick = (jobId) => {
     setSelectedJobId(jobId);
     workExRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div style={{position: 'relative', paddingTop: '25px'}}>
-      <div className="gradient-bg"></div>
-      <Navbar />
+    <>
       <ContactModal isOpen={showModal} onClose={() => setShowModal(false)} />
-
       <ImageModal isOpen={showCertModal} onClose={() => setShowCertModal(false)} imgSrc="/nextleap-logo.png" />
 
       <div className="bento-grid">
-
         {/* 1. HERO */}
         <BentoCard span={2} className="hero-mode" id="home">
           <div className="hero-container">
              <h1 style={{marginBottom: '0.5rem'}}>Hi, I am Kunal Shroff</h1>
              <h2 style={{fontSize: '1.8rem', marginBottom: '1.5rem', color: '#594632'}}>
                Product Manager specializing in <span className="typewriter-text">
-                 <Typewriter words={["Fintech", "Media", "CRM Workflows", "API Integrations"]} />
+                 <Typewriter words={["Fintech", "Media", "Backend Workflows", "API Integrations"]} />
                </span>
              </h2>
              <p style={{fontSize: '1.15rem', maxWidth: '90%', marginBottom: '2rem'}}>
-               A product thinker with a builder’s mindset, I work across revenue, settlements, and user workflows to ship meaningful outcomes. 
-               Off the clock, I’m into football, Video games, Cricket, Stock market, and creating meme-level insights on Twitter.
+               A product thinker with a builder’s mindset, I work across revenue, settlements, and user workflows to ship meaningful outcomes. Off the clock, I’m into football, Video games, Cricket, Stock market, and creating meme-level insights on Twitter.
              </p>
-             <div className="action-bar" style={{marginTop: '0'}}>
-               <a href="/kunal-shroff-cv.pdf" download= "Kunal-Shroff-CV.pdf"className="action-btn primary"><Download size={18} /> Download CV</a>
+            <div className="action-bar" style={{marginTop: '0'}}>
+               {/* Replaced CV Download with Projects Link */}
+               <a href="#projects" className="action-btn primary"><FolderOpen size={18} /> View Projects</a>
                <button onClick={() => setShowModal(true)} className="action-btn"><Mail size={18} /> Get in Touch</button>
              </div>
           </div>
@@ -252,24 +286,7 @@ function App() {
                <div className="icon-box"><TrendingUp size={20} color="#10b981" /></div>
                <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+5% GMV</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>WhatsApp Consent System</div></div>
             </div>
-            
           </div>
-        </BentoCard>
-
-        {/* 3. NEW ABOUT ME SECTION (No Tile) */}
-        <BentoCard span={3} className="hero-mode" id="about">
-           <h2 style={{fontSize: '2rem', marginBottom: '1.5rem', color: '#1a1a1a'}}>About Me</h2>
-           <p style={{color: '#594632', fontWeight: '700', fontSize: '1.2rem', lineHeight: '1.8', maxWidth: '900px'}}>
-             I am a product manager who thrives at the intersection of data, design, and user psychology. Currently at Mid-Day, I’m leading a full-                scale website revamp to enhance user experience, engagement, and content discoverability across the platform.At ImpactGuru, I led key               charters across Settlements, Revenue, and the BD App, building scalable systems and automating complex financial workflows through API-              driven solutions.
-             <br/><br/>
-             Across organisations I’ve shipped products end-to-end from dashboards to PDP redesigns and WhatsApp-based growth systems. 
-             My work has improved conversion rates, reduced operational effort, and enhanced stability across internal and customer-facing systems. 
-             Before transitioning into product, I managed a ₹10 Cr portfolio at Laaj International, strengthening my analytical and 
-             strategic decision-making foundation.
-             <br/><br/>
-             When I'm not writing PRDs or analyzing SQL queries, you can find me debating the latest Football match.
-             I’m also an active stock-market investor who enjoys combining product thinking with market insight.
-           </p>
         </BentoCard>
 
         {/* 4. WORK EXPERIENCE */}
@@ -320,80 +337,37 @@ function App() {
               { title: "BD App Fees Upgrade", desc: "A feature prototype I designed to drive revenue and boost operational productivity of our internal agents.", tech: ["Product Strategy", "Data Visualization"],link:"https://preview--vision-into-vista.lovable.app" },
               { title: "Billing Module", desc: "Wireframes of OCR-driven billing module that centralizes all bills, automates data extraction and verification,", tech: ["Automation", "OCR Automation", "Fintech"], link:"https://whimsical.com/billing-module-and-settlement-auto-completion-flow-F25ygSrHFFmhEhYKvBzkc6" }
             ].map((p, i) => (
-              <a 
-                      key={i} 
-                      href={p.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      style={{textDecoration: 'none', display: 'block', color: 'inherit'}}
-                    >
-                      <div className="project-tile">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom:'1rem' }}>
-                           <h3 style={{ fontSize: '1.25rem', color: '#1f2937' }}>{p.title}</h3>
-                           <ArrowUpRight size={20} className="text-gray" />
-                        </div>
-                        <p style={{ fontSize: '1rem', marginBottom: '1.5rem' }}>{p.desc}</p>
-                        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                          {p.tech.map(t => <span key={t} className="tech-tag">{t}</span>)}
-                        </div>
-                      </div>
-                    </a>
-                  ))}
+              <a key={i} href={p.link} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none', display: 'block', color: 'inherit'}}>
+                <div className="project-tile">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom:'1rem' }}>
+                     <h3 style={{ fontSize: '1.25rem', color: '#1f2937' }}>{p.title}</h3>
+                     <ArrowUpRight size={20} className="text-gray" />
+                  </div>
+                  <p style={{ fontSize: '1rem', marginBottom: '1.5rem' }}>{p.desc}</p>
+                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    {p.tech.map(t => <span key={t} className="tech-tag">{t}</span>)}
+                  </div>
                 </div>
-              </BentoCard>  
+              </a>
+            ))}
+          </div>
+        </BentoCard>  
 
         {/* 6. CERTIFICATIONS */}
         <BentoCard span={1} id="certifications">
           <div className="cert-header" style={{ alignItems: 'flex-start' }}>
             <div style={{ flex: 1, paddingRight: '1rem' }}>
               <h2 style={{fontSize:'1.4rem', fontWeight:'800', color:'#2D2420', marginBottom:'0.5rem'}}>Certifications</h2>
-
-              {/* Updated: Bold Orange Font */}
-              <div style={{fontSize:'0.85rem', color:'#594632', fontWeight:'700', marginBottom:'1rem'}}>
-                Product Manager Fellowship
-              </div>
-
-              <a 
-                href="https://nextleap.app/portfolio/kunal-shroff" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                style={{fontSize:'0.9rem', color:'#E67847', textDecoration:'none', fontWeight:'600', display:'inline-block'}}
-              >
-                Learn More
-              </a>
+              <div style={{fontSize:'0.85rem', color:'#594632', fontWeight:'700', marginBottom:'1rem'}}>Product Manager Fellowship</div>
+              <a href="https://nextleap.app/portfolio/kunal-shroff" target="_blank" rel="noopener noreferrer" style={{fontSize:'0.9rem', color:'#E67847', textDecoration:'none', fontWeight:'600', display:'inline-block'}}>Learn More</a>
             </div>
-            {/* Clickable Logo - Opens Image Modal */}
-            <div 
-              onClick={(e) => {
-                e.preventDefault(); // Prevent any default link behavior
-                setShowCertModal(true);
-              }}
-              className="cert-logo-circle" 
-              style={{
-                width:'100px', 
-                height:'100px', 
-                flexShrink: 0,
-                overflow:'hidden', 
-                padding:'0', 
-                border:'3px solid #E67847',
-                cursor:'pointer',
-                display:'block',
-                transition: 'transform 0.2s'
-              }}
-              onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-              onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-            >
-               <img src="/nextleap-logo.png" alt="NL" style={{width:'100%', height:'100%', objectFit:'cover'}} 
-                    onError={(e) => {e.target.style.display='none'; e.target.parentNode.innerText='NL'}} /> 
+            <div onClick={(e) => { e.preventDefault(); setShowCertModal(true); }} className="cert-logo-circle" style={{width:'100px', height:'100px', flexShrink: 0, overflow:'hidden', padding:'0', border:'3px solid #E67847', cursor:'pointer', display:'block', transition: 'transform 0.2s'}} onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}>
+               <img src="/nextleap-logo.png" alt="NL" style={{width:'100%', height:'100%', objectFit:'cover'}} onError={(e) => {e.target.style.display='none'; e.target.parentNode.innerText='NL'}} /> 
             </div>            
           </div>
 
-          {/* Updated: Reduced bottom margin to close gap with Top Skills */}
           <div style={{marginBottom:'1.5rem', marginTop:'1rem'}}>
-             {/* Updated: Orange Color */}
-             <div style={{fontSize:'0.75rem', color:'#594632', marginBottom:'0.75rem', textTransform:'uppercase', letterSpacing:'0.05em', fontWeight:'700'}}>
-               Evaluated by Product Managers from:
-             </div>
+             <div style={{fontSize:'0.75rem', color:'#594632', marginBottom:'0.75rem', textTransform:'uppercase', letterSpacing:'0.05em', fontWeight:'700'}}>Evaluated by Product Managers from:</div>
              <div className="mentor-badge-container" style={{flexWrap:'wrap', gap:'0.5rem', marginBottom: '0'}}>
                <div className="mentor-badge">Khatabook</div>
                <div className="mentor-badge">ZenfitX</div>
@@ -403,7 +377,6 @@ function App() {
 
           <div>
             <h3 style={{fontSize:'1.2rem', color:'#594632', marginBottom:'1rem', marginTop:'0.5rem', fontWeight:'700', textAlign:'center'}}>Top Skills</h3>
-
             {[
               { name: "Data & Metrics Orientation", score: 88 },
               { name: "Clarity & Depth of Thought", score: 75 },
@@ -411,145 +384,52 @@ function App() {
               { name: "Presentation & Communication", score: 66 }
             ].map((c, i) => (
               <div key={i} className="cert-row">
-                 <div className="cert-name">
-                   <span style={{color:'#594632', fontWeight:'600'}}>{c.name}</span>
-                   <span style={{color:'#1a1a1a', fontWeight:'700'}}>{c.score}%</span>
-                 </div>
-                 <div className="cert-bar-bg">
-                   <div className="cert-bar-fill" style={{width:`${c.score}%`, background:'#E67847'}}></div>
-                 </div>
+                 <div className="cert-name"><span style={{color:'#594632', fontWeight:'600'}}>{c.name}</span><span style={{color:'#1a1a1a', fontWeight:'700'}}>{c.score}%</span></div>
+                 <div className="cert-bar-bg"><div className="cert-bar-fill" style={{width:`${c.score}%`, background:'#E67847'}}></div></div>
               </div>
             ))}
           </div>
         </BentoCard>
 
-        {/* 7. GRADUATION PROJECT (With Image Thumbnail) */}
+        {/* 7. GRADUATION PROJECT */}
         <BentoCard span={2}>
            <div className="grad-project-container" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-
-             {/* 1. Title & Description */}
              <div style={{ marginBottom: '1.5rem' }}>
                <h2 style={{fontSize:'1.5rem', marginBottom:'0.75rem', color:'#2D2420'}}>Graduation Project</h2>
                <p style={{fontSize:'1.05rem', fontWeight:"600",color:'#594632', maxWidth:'600px'}}>
                 I built an MVP that connects pet parents with trusted service providers and facilitates safe, structured socialization experiences.
                </p>
              </div>
-
-             {/* 2. Real Image Thumbnail */}
-             {/* Ensure 'project-thumbnail.jpg' is uploaded to your public folder */}
              <div className="grad-thumb-big" style={{ flex: 1, marginBottom: '1.5rem', minHeight: '220px', padding: 0, overflow: 'hidden' }}>
-                <img 
-                  src="/project-thumnail.png" 
-                  alt="Graduation Project Preview" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '16px' }}
-                  onError={(e) => {
-                    e.target.style.display = 'none'; // Hide if image not found
-                    e.target.parentNode.style.padding = '2rem'; // Restore padding for text fallback
-                    e.target.parentNode.innerText = 'Image not found. Please upload project-thumbnail.jpg';
-                  }}
-                />
+                <img src="/project-thumnail.png" alt="Graduation Project Preview" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '16px' }} onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.style.padding = '2rem'; e.target.parentNode.innerText = 'Image not found. Please upload project-thumbnail.jpg'; }} />
              </div>
-
-             {/* 3. Button */}
              <div>
-               <a 
-                 href="/Graduation-project.pdf" 
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 className="action-btn primary"
-                 style={{ display: 'inline-flex', textDecoration: 'none' }}
-               >
-                 View Project Deck <ArrowUpRight size={16} />
-               </a>
+               <a href="/Graduation-project.pdf" target="_blank" rel="noopener noreferrer" className="action-btn primary" style={{ display: 'inline-flex', textDecoration: 'none' }}>View Project Deck <ArrowUpRight size={16} /></a>
              </div>
            </div>
         </BentoCard>
 
         {/* 7. DECK VAULT */}
-        {/* 7. DECK VAULT (Thumbnails + Links/PDFs) */}
         <BentoCard span={3}>
-           <div className="section-icon-header">
-             <div className="section-icon-box"><Layers size={20} /></div>
-             <h2>Deck Vault</h2>
-           </div>
-
+           <div className="section-icon-header"><div className="section-icon-box"><Layers size={20} /></div><h2>Deck Vault</h2></div>
            <div className="deck-scroll-container">
              {[
-               { 
-                 title: "BD POC Management (PRD)", 
-                 desc: "A detailed PRD for the feature", 
-                 link: "https://whimsical.com/poc-management-VucfKmRkZScPBvVP4TZKtP", // <--- INSERT YOUR EXTERNAL LINK
-                 thumb: "/thumb-bd.png" 
-               },
-               { 
-                 title: "Competitor Analysis", 
-                 desc: "Deep dive into market landscape & feature gaps.", 
-                 link: "https://whimsical.com/mid-day-homepage-TY9JfZv6ogYsG3jVwpNEqy", // <--- INSERT YOUR EXTERNAL LINK
-                 thumb: "/thumb-competitor.png" 
-               },
-               { 
-                 title: "Analyzing User Experience", 
-                 desc: "Usability Heuristics for User Interface Design.", 
-                 link: "/google-photos.pdf", // <--- Opens PDF from public folder
-                 thumb: "/thumb-photos.png" 
-               },
-               { 
-                 title: "Shopping assistant for Flipkart", 
-                 desc: "Building AI chatbot for Flipkart", 
-                 link: "/flipkart.pdf",      // <--- Opens PDF from public folder
-                 thumb: "/thumb-flipkart.png" 
-               },
-               { 
-                 title: "Product Teardown- Netflix", 
-                 desc: "A detailed analysis of New User Onboarding by Netflix.", 
-                 link: "/netflix.pdf",       // <--- Opens PDF from public folder
-                 thumb: "/netflix.png" 
-               }
+               { title: "BD POC Management (PRD)", desc: "A detailed PRD for the feature", link: "https://whimsical.com/poc-management-VucfKmRkZScPBvVP4TZKtP", thumb: "/thumb-bd.png" },
+               { title: "Competitor Analysis", desc: "Deep dive into market landscape & feature gaps.", link: "https://whimsical.com/mid-day-homepage-TY9JfZv6ogYsG3jVwpNEqy", thumb: "/thumb-competitor.png" },
+               { title: "Analyzing User Experience", desc: "Usability Heuristics for User Interface Design.", link: "/google-photos.pdf", thumb: "/thumb-photos.png" },
+               { title: "Shopping assistant for Flipkart", desc: "Building AI chatbot for Flipkart", link: "/flipkart.pdf", thumb: "/thumb-flipkart.png" },
+               { title: "Product Teardown- Netflix", desc: "A detailed analysis of New User Onboarding by Netflix.", link: "/netflix.pdf", thumb: "/netflix.png" }
              ].map((d, i) => (
-               <a 
-                 key={i}
-                 href={d.link} 
-                 target="_blank" 
-                 rel="noopener noreferrer" 
-                 className="deck-card-large"
-                 style={{textDecoration: 'none', display: 'block', cursor: 'pointer', color: 'inherit'}}
-               >
-                  {/* Thumbnail Image */}
-                  <div 
-                    className="deck-thumb-large" 
-                    style={{ 
-                      padding: 0, 
-                      overflow: 'hidden', 
-                      background: '#fff',
-                      border: '1px solid rgba(230, 120, 71, 0.1)' 
-                    }}
-                  >
-                     <img 
-                       src={d.thumb} 
-                       alt={d.title} 
-                       style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                       onError={(e) => {
-                         e.target.style.display='none'; 
-                         e.target.parentNode.style.display='flex';
-                         e.target.parentNode.innerText='Img Not Found';
-                         e.target.parentNode.style.fontSize='0.8rem';
-                         e.target.parentNode.style.color='#9ca3af';
-                       }}
-                     />
+               <a key={i} href={d.link} target="_blank" rel="noopener noreferrer" className="deck-card-large" style={{textDecoration: 'none', display: 'block', cursor: 'pointer', color: 'inherit'}}>
+                  <div className="deck-thumb-large" style={{ padding: 0, overflow: 'hidden', background: '#fff', border: '1px solid rgba(230, 120, 71, 0.1)' }}>
+                     <img src={d.thumb} alt={d.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display='none'; e.target.parentNode.style.display='flex'; e.target.parentNode.innerText='Img Not Found'; e.target.parentNode.style.fontSize='0.8rem'; e.target.parentNode.style.color='#9ca3af'; }} />
                   </div>
-
-                  {/* Title & Description */}
-                  <div style={{fontWeight:'700', fontSize:'1.1rem', marginBottom:'0.25rem', color:'#1f2937'}}>
-                    {d.title}
-                  </div>
-                  <div style={{fontSize:'0.9rem', color:'#6b7280', lineHeight: '1.4'}}>
-                    {d.desc}
-                  </div>
+                  <div style={{fontWeight:'700', fontSize:'1.1rem', marginBottom:'0.25rem', color:'#1f2937'}}>{d.title}</div>
+                  <div style={{fontSize:'0.9rem', color:'#6b7280', lineHeight: '1.4'}}>{d.desc}</div>
                </a>
              ))}
            </div>
         </BentoCard>
-
 
         {/* 8. EDUCATION */}
         <BentoCard span={3} id = "education">
@@ -572,7 +452,7 @@ function App() {
                  );
               })}
             </div>
-            <div className={`sticky-note ${selectedEduId === 'grad' ? 'blue' : selectedEduId === 'hsc' ? 'yellow' : 'green'}`}> {/* Dynamic color logic */}
+            <div className={`sticky-note ${selectedEduId === 'grad' ? 'blue' : selectedEduId === 'hsc' ? 'yellow' : 'green'}`}>
                <div style={{fontWeight:'bold', fontSize:'1.3rem', marginBottom:'1.5rem', borderBottom:'1px solid rgba(0,0,0,0.1)', paddingBottom:'0.5rem'}}>Extra-Curriculars</div>
                <ul style={{paddingLeft:'1.2rem', margin:0}}>
                  {[
@@ -618,7 +498,31 @@ function App() {
         </BentoCard>
 
       </div>
-    </div>
+    </>
+  );
+};
+
+// --- MAIN APP ---
+function App() {
+  return (
+    <>
+      <ScrollToHash />
+      <div style={{position: 'relative', paddingTop: '25px'}}>
+        <div className="gradient-bg"></div>
+        <Navbar />
+
+        {/* --- NEW FLOATING CV BUTTON --- */}
+        <a href="/kunal-shroff-cv.pdf" download="Kunal-Shroff-CV.pdf" className="floating-cv-btn">
+          <Download size={20} />
+          <span className="floating-btn-text">Download CV</span>
+        </a>
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 

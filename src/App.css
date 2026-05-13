@@ -68,7 +68,7 @@ body {
 /* 4. TYPOGRAPHY */
 h1 { font-size: 3.5rem; font-weight: 800; margin: 0; letter-spacing: -0.03em; line-height: 1.1; color: #1a1a1a; }
 h2 { font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.02em; color: #2d2420; }
-p { color: #4b5563; line-height: 1.7; margin: 0; font-size: 1.05rem; }
+p { color: #272f3a; line-height: 1.7; margin: 0; font-size: 1.05rem; }
 
 /* Utilities */
 .span-2 { grid-column: span 1; }
@@ -78,7 +78,25 @@ p { color: #4b5563; line-height: 1.7; margin: 0; font-size: 1.05rem; }
 
 /* 5. BUTTONS (Button Colour: #E67847) */
 .action-bar { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; }
-.action-btn { display: flex; align-items: center; gap: 0.6rem; padding: 12px 24px; background: #fff; border: 1px solid #E67847; border-radius: 12px; color: #E67847; font-weight: 600; transition: all 0.2s; text-decoration: none; }
+.action-btn { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; /* Centers the icon and text */
+  gap: 0.6rem; 
+  padding: 12px 24px; 
+  background: #fff; 
+  border: 1px solid #E67847; 
+  border-radius: 12px; 
+  color: #E67847; 
+  font-weight: 600; 
+  font-size: 1rem; /* Forces identical text size */
+  font-family: inherit; /* Forces button to use your Inter font */
+  transition: all 0.2s; 
+  text-decoration: none; 
+  min-width: 190px; /* Forces both to be the exact same width */
+  box-sizing: border-box; /* Keeps padding inside the width */
+  cursor: pointer;
+}
 .action-btn:hover { background: #fff3e0; transform: translateY(-2px); }
 .action-btn.primary { background: #E67847; color: #ffffff; border-color: #E67847; }
 .action-btn.primary:hover { background: #cc5f30; }
@@ -439,4 +457,42 @@ html {
 
 .zoom-image {
   animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy smooth zoom */
+}
+
+/* --- FLOATING CV BUTTON --- */
+.floating-cv-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #E67847;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 10px 25px rgba(230, 120, 71, 0.4);
+  z-index: 1000; /* Stays above content, below modals */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.floating-cv-btn:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(230, 120, 71, 0.5);
+  background: #cc5f30;
+}
+
+/* Mobile Polish: Hide the text on small screens, keep it a circle */
+@media (max-width: 640px) {
+  .floating-btn-text {
+    display: none;
+  }
+  .floating-cv-btn {
+    padding: 1.2rem;
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
 }
