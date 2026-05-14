@@ -1,11 +1,4 @@
-/* src/App.css - CUSTOM WARM THEME */
-html, body {
-  overflow-x: hidden; /* This kills the side blank space */
-  width: 100%;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
+
 /* 1. CORE BACKGROUND */
 body {
   margin: 0;
@@ -76,27 +69,17 @@ p { color: #272f3a; line-height: 1.7; margin: 0; font-size: 1.05rem; }
 .span-3 { grid-column: span 1; }
 @media (min-width: 768px) { .span-3 { grid-column: span 3; } }
 
-/* 5. BUTTONS (Button Colour: #E67847) */
-.action-bar { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; }
-.action-btn { 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; /* Centers the icon and text */
-  gap: 0.6rem; 
-  padding: 12px 24px; 
-  background: #fff; 
-  border: 1px solid #E67847; 
-  border-radius: 12px; 
-  color: #E67847; 
-  font-weight: 600; 
-  font-size: 1rem; /* Forces identical text size */
-  font-family: inherit; /* Forces button to use your Inter font */
-  transition: all 0.2s; 
-  text-decoration: none; 
-  min-width: 190px; /* Forces both to be the exact same width */
-  box-sizing: border-box; /* Keeps padding inside the width */
-  cursor: pointer;
+/* 5. GLOBAL BUTTON STYLES (DESKTOP) --- */
+
+/* src/App.css - CUSTOM WARM THEME */
+html, body {
+  overflow-x: hidden; /* This kills the side blank space */
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
+
 .action-btn:hover { background: #fff3e0; transform: translateY(-2px); }
 .action-btn.primary { background: #E67847; color: #ffffff; border-color: #E67847; }
 .action-btn.primary:hover { background: #cc5f30; }
@@ -163,7 +146,56 @@ p { color: #272f3a; line-height: 1.7; margin: 0; font-size: 1.05rem; }
 .grad-project-container { height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
 .grad-thumb-big { flex: 1; background: #F2E4DB; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border: 1px solid rgba(230, 120, 71, 0.1); min-height: 220px; }
 
-.deck-scroll-container { display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 1.5rem; scroll-snap-type: x mandatory; }
+/* --- SLEEK HORIZONTAL SLIDER FOR DECK VAULT (SCROLL-DETECT) --- */
+.deck-scroll-container { 
+  display: flex; 
+  gap: 1.5rem; 
+  overflow-x: auto; 
+  padding-bottom: 1.5rem; 
+  scroll-snap-type: x mandatory; 
+
+  /* Firefox: Hidden by default */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* Firefox: Reveal on hover OR while scrolling */
+.deck-scroll-container:hover,
+.deck-scroll-container.is-scrolling {
+  scrollbar-color: #E67847 transparent;
+}
+
+/* Chrome, Edge, Safari Support */
+.deck-scroll-container::-webkit-scrollbar {
+  height: 6px; 
+}
+
+/* Track */
+.deck-scroll-container::-webkit-scrollbar-track {
+  background: transparent; 
+  border-radius: 10px;
+}
+
+.deck-scroll-container:hover::-webkit-scrollbar-track,
+.deck-scroll-container.is-scrolling::-webkit-scrollbar-track {
+  background: rgba(230, 120, 71, 0.08); 
+}
+
+/* Thumb (Slider) */
+.deck-scroll-container::-webkit-scrollbar-thumb {
+  background: transparent; 
+  border-radius: 10px;
+}
+
+/* Reveal orange slider on hover OR while scrolling */
+.deck-scroll-container:hover::-webkit-scrollbar-thumb,
+.deck-scroll-container.is-scrolling::-webkit-scrollbar-thumb {
+  background: #E67847; 
+}
+
+.deck-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #cc5f30; 
+}
 .deck-card-large { min-width: 320px; scroll-snap-align: start; background: #F2E4DB; border: 1px solid rgba(230, 120, 71, 0.05); border-radius: 16px; padding: 1.5rem; transition: 0.3s; }
 .deck-card-large:hover { background: #fff; transform: translateY(-5px); border-color: #E67847; box-shadow: 0 10px 20px rgba(230, 120, 71, 0.1); }
 .deck-thumb-large { width: 100%; aspect-ratio: 16/9; background: #fff; border-radius: 12px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; border: 1px solid #f3f4f6; color: #E67847; }
@@ -303,28 +335,92 @@ html {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- HERO & TYPEWRITER --- */
+/* --- HERO & TYPEWRITER UPDATES --- */
 .hero-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 1rem 0;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  padding: 0;
 }
+
+.hero-text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Desktop Layout: Side-by-side */
+@media (min-width: 768px) {
+  .hero-container {
+    flex-direction: row-reverse; /* Puts image on the right */
+    text-align: left;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+  .hero-text-content {
+    align-items: flex-start;
+    flex: 1;
+  }
+}
+
+/* --- SLEEK PROFILE IMAGE --- */
+.hero-profile-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 15px 35px rgba(230, 120, 71, 0.2);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hero-profile-img:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+@media (min-width: 768px) {
+  .hero-profile-img {
+    width: 220px;
+    height: 220px;
+  }
+}
+/* --- MOBILE "ABOVE THE FOLD" FIXES --- */
+@media (max-width: 767px) {
+  /* 1. Pull the grid up to offset the navbar */
+  .bento-grid { padding: 1rem 1rem !important; }
+  
+  /* 2. Compress the Hero spacing and push it below the navbar */
+  .hero-container { gap: 0.75rem; padding: 0; margin-top: 2.5rem; }
+
+  /* 3. Shrink Profile Image for mobile */
+  .hero-profile-img { width: 105px; height: 105px; border-width: 3px; }
+
+  /* 4. Sleeker, tighter Typography */
+  h1 { font-size: 1.9rem !important; letter-spacing: -0.04em; }
+  .hero-container h2 { font-size: 1.05rem !important; margin-bottom: 0.25rem !important; }
+  .hero-container p { 
+    font-size: 0.9rem !important; 
+    line-height: 1.4; 
+    margin-bottom: 0.75rem !important; 
+    padding: 0 0.5rem; 
+  }
+} /* <--- Mobile block cleanly closes here */
 
 .typewriter-text {
   color: #E67847;
   font-weight: 800;
 }
-
 /* FIXED CURSOR */
 .cursor {
   display: inline-block;
   width: 3px;
-  height: 1em; /* Matches font height */
+  height: 1em;
   background-color: #594632;
   animation: blink 1s step-end infinite;
   margin-left: 4px;
-  vertical-align: text-bottom; /* Aligns perfectly with text */
+  vertical-align: text-bottom;
 }
 
 @keyframes blink { 50% { opacity: 0; } }
@@ -335,12 +431,12 @@ html {
   border: none !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
-  padding-left: 0;
+  padding: 0 !important;
 }
-/* Bio Text Color Override */
 .hero-container p {
-  color: #594632 !important; /* Force Dark Brown */
+  color: #594632 !important;
 }
+
 /* --- CONTACT MODAL (FIXED) --- */
 .modal-overlay {
   position: fixed;
@@ -495,4 +591,35 @@ html {
     bottom: 1.5rem;
     right: 1.5rem;
   }
+}
+
+/* --- RESPONSIVE TIMELINE ACCORDION --- */
+.mobile-achievements {
+  display: none;
+  animation: slideDownFade 0.3s ease-out forwards;
+}
+
+/* Mobile View (Screens smaller than 768px) */
+@media (max-width: 767px) {
+  /* Show accordion inside the active button */
+  .timeline-item-btn.active .mobile-achievements {
+    display: block;
+  }
+  /* Hide the big sticky note at the bottom */
+  .desktop-sticky-note {
+    display: none !important;
+  }
+}
+
+/* Desktop View (Screens 768px and larger) */
+@media (min-width: 768px) {
+  /* Ensure mobile accordion never shows on desktop */
+  .mobile-achievements {
+    display: none !important;
+  }
+}
+
+@keyframes slideDownFade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

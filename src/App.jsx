@@ -29,8 +29,8 @@ const Navbar = () => {
     { name: "About Me", path: "/about" },
     { name: "Impact", path: "/#impact" },
     { name: "Experience", path: "/#work" },
-    { name: "Education", path: "/#education" },
-    { name: "Skills", path: "/#skills" },
+    { name: "Deck-Vault", path: "/#deck-vault" }, // Updated to deck-vault
+    { name: "Education", path: "/#education" }
   ];
 
   return (
@@ -99,48 +99,11 @@ const ContactModal = ({ isOpen, onClose }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}><X size={24} /></button>
         <h2 style={{marginBottom: '2rem', fontSize: '1.8rem'}}>Get in Touch</h2>
-        <div className="modal-row">
-          <div className="section-icon-box"><Mail size={20} /></div>
-          <div>
-            <div className="modal-label">Gmail</div>
-            <a 
-              href="mailto:kunalshrofff@gmail.com" 
-              className="modal-value" 
-              style={{textDecoration:'none', color:'#1a1a1a'}}
-            >
-              kunalshrofff@gmail.com
-            </a>
-          </div>
-        </div>
-        <div className="modal-row">
-          <div className="section-icon-box"><Linkedin size={20} /></div>
-          <div>
-            <div className="modal-label">LinkedIn</div>
-            <a 
-              href="https://www.linkedin.com/in/kunal-shroff-485b4b1b4" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="modal-value" 
-              style={{textDecoration:'none', color:'#1a1a1a', wordBreak: 'break-all'}}
-            >
-              linkedin.com/in/kunal-shroff-485b4b1b4
-            </a>
-          </div>
-        </div>
-        <div className="modal-row">
-          <div className="section-icon-box"><Phone size={20} /></div>
-          <div>
-            <div className="modal-label">Phone</div>
-            {/* Swapped div for a 'tel:' link */}
-            <a 
-              href="tel:+918779673427" 
-              className="modal-value" 
-              style={{textDecoration:'none', color:'#1a1a1a'}}
-            >
-              +91 8779673427
-            </a>
-          </div>
-        </div>
+
+        {/* Updated Native Links */}
+        <div className="modal-row"><div className="section-icon-box"><Mail size={20} /></div><div><div className="modal-label">Gmail</div><a href="mailto:kunalshrofff@gmail.com" className="modal-value" style={{textDecoration:'none', color:'#1a1a1a'}}>kunalshrofff@gmail.com</a></div></div>
+        <div className="modal-row"><div className="section-icon-box"><Linkedin size={20} /></div><div><div className="modal-label">LinkedIn</div><a href="https://www.linkedin.com/in/kunal-shroff-485b4b1b4" target="_blank" rel="noopener noreferrer" className="modal-value" style={{textDecoration:'none', color:'#1a1a1a', wordBreak: 'break-all'}}>linkedin.com/in/kunal-shroff-485b4b1b4</a></div></div>
+        <div className="modal-row"><div className="section-icon-box"><Phone size={20} /></div><div><div className="modal-label">Phone</div><a href="tel:+918779673427" className="modal-value" style={{textDecoration:'none', color:'#1a1a1a'}}>+91 8779673427</a></div></div>
         <div className="modal-row"><div className="section-icon-box"><MapPin size={20} /></div><div><div className="modal-label">Location</div><div className="modal-value">Mumbai, India</div></div></div>
       </div>
     </div>
@@ -148,11 +111,7 @@ const ContactModal = ({ isOpen, onClose }) => {
 };
 
 const BentoCard = ({ children, className = "", span = 1, onClick, id }) => (
-  <div 
-    id={id} 
-    onClick={onClick} 
-    className={`bento-card span-${span} ${onClick ? 'interactive' : ''} ${className}`}
-  >
+  <div id={id} onClick={onClick} className={`bento-card span-${span} ${onClick ? 'interactive' : ''} ${className}`}>
     {children}
   </div>
 );
@@ -163,9 +122,7 @@ const ImageModal = ({ isOpen, onClose, imgSrc }) => {
   return (
     <div className="modal-overlay" onClick={onClose} style={{zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
       <div className="zoom-image" style={{position: 'relative', maxWidth: '90%', maxHeight: '90%'}} onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} style={{top: '-20px', right: '-20px', background: 'white', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.2)'}}>
-          <X size={24} />
-        </button>
+        <button className="modal-close" onClick={onClose} style={{top: '-20px', right: '-20px', background: 'white', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.2)'}}><X size={24} /></button>
         <img src={imgSrc} alt="Certificate Full View" style={{maxWidth: '100%', maxHeight: '85vh', borderRadius: '12px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'}} />
       </div>
     </div>
@@ -173,18 +130,24 @@ const ImageModal = ({ isOpen, onClose, imgSrc }) => {
 };
 
 // --- ABOUT PAGE COMPONENT ---
+// --- ABOUT PAGE COMPONENT ---
 const AboutPage = () => {
   return (
     <div className="bento-grid" style={{ minHeight: '70vh', alignContent: 'center', paddingBottom: '2rem' }}>
       <BentoCard span={3} className="hero-mode" id="about">
-         <h2 style={{fontSize: '2.5rem', marginBottom: '2rem', color: '#1a1a1a'}}>About Me</h2>
-         <p style={{color: '#594632', fontWeight: '500', fontSize: '1.2rem', lineHeight: '1.6', maxWidth: '1300px'}}>
-           I am a product manager who thrives at the intersection of data, design, and user psychology. Currently at Mid-Day, I’m leading a full-scale website revamp to enhance user experience, engagement, and content discoverability across the platform. At ImpactGuru, I led key charters across Settlements, Revenue, and the BD App, building scalable systems and automating complex financial workflows through API-driven solutions.
-           <br/><br/>
-           Across organisations I’ve shipped products end-to-end from dashboards to PDP redesigns and WhatsApp-based growth systems. My work has improved conversion rates, reduced operational effort, and enhanced stability across internal and customer-facing systems. Before transitioning into product, I managed a ₹10 Cr portfolio at Laaj International, strengthening my analytical and strategic decision-making foundation.
-           <br/><br/>
-           When I'm not writing PRDs or analyzing SQL queries, you can find me debating the latest Football match. I’m also an active stock-market investor who enjoys combining product thinking with market insight.
-         </p>
+
+         {/* THE FIX: Added a wrapper with paddingTop to push content below the sticky navbar */}
+         <div style={{ paddingTop: '4rem' }}>
+           <h2 style={{fontSize: '2.5rem', marginBottom: '2rem', color: '#1a1a1a'}}>About Me</h2>
+           <p style={{color: '#594632', fontWeight: '500', fontSize: '1.2rem', lineHeight: '1.8', maxWidth: '1300px'}}>
+             I am a product manager who thrives at the intersection of data, design, and user psychology. Currently at Mid-day, I’m leading a full-scale website revamp to enhance user experience, engagement, and content discoverability across the platform. At ImpactGuru, I led key charters across Settlements, Revenue, and the BD App, building scalable systems and automating complex financial workflows through API-driven solutions.
+             <br/><br/>
+             Across organisations I’ve shipped products end-to-end from dashboards to PDP redesigns and WhatsApp-based growth systems. My work has improved conversion rates, reduced operational effort, and enhanced stability across internal and customer-facing systems. Before transitioning into product, I managed a ₹10 Cr portfolio at Laaj International, strengthening my analytical and strategic decision-making foundation.
+             <br/><br/>
+             When I'm not writing PRDs or analyzing SQL queries, you can find me debating the latest Football match. I’m also an active stock-market investor who enjoys combining product thinking with market insight.
+           </p>
+         </div>
+
       </BentoCard>
     </div>
   );
@@ -194,14 +157,30 @@ const AboutPage = () => {
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showCertModal, setShowCertModal] = useState(false);
-  const [selectedJobId, setSelectedJobId] = useState('midday');
+  const [selectedJobId, setSelectedJobId] = useState(null);
 
-  const selectedJob = [
+  // NEW: Scroll detection logic for the Deck Vault
+  const [isDeckScrolling, setIsDeckScrolling] = useState(false);
+  const scrollTimeoutRef = useRef(null);
+
+  const handleDeckScroll = () => {
+    setIsDeckScrolling(true);
+    // Clear the existing timeout if they keep scrolling
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    // Hide the scrollbar 800 milliseconds after they stop scrolling
+    scrollTimeoutRef.current = setTimeout(() => {
+      setIsDeckScrolling(false);
+    }, 800);
+  };
+
+  const jobsData = [
     {
       id: 'midday', role: "Associate Product Manager", company: "Mid-day", period: "Nov 2025 - Present", color: "blue",
       bullets: [
-        "Owned the end-to-end website revamp (UI/UX & IA), now in beta, improving content structure, user flow, and engagement.",
-        "Conceptualized and launched high-traffic event microsites (T20 World Cup, Valentine’s Day, IPL 2026), contributing ~2% revenue and ~3% pageviews.",
+        "Owned the end-to-end website revamp, improving content structure, user flow, and engagement.",
+        "Conceptualized and launched high-traffic event microsites (T20 World Cup, Valentine’s Day, IPL 2026),contributing ~2% revenue and ~3% pageviews.",
         "Implemented GIS-based login and sign-up enhancements, removing onboarding friction and scaling adoption to 25K+ active users.",
         "Built an in-house HR module and careers portal, replacing a third-party solution and saving ₹3L+ annually."
       ]
@@ -212,7 +191,7 @@ const HomePage = () => {
         "Led end-to-end development of the BD app dashboard with a fee-upgrade flow, driving a 2% revenue increase.",
         "Delivered an OCR-powered billing module, bringing billing errors down to under 1%.",
         "Automated settlement and receipts through Razorpay APIs, cutting TAT to 24–48 hours.",
-        "Launched a POC tracking and feedback system that grew leads by 3% and improved lead-to-campaign conversions by 10%.",
+        "Launched a POC management system that grew leads by 3% and improved lead-to-campaign conversions by 10%.",
         "Built a WhatsApp consent system increasing GMV by 5%.",
         "Automated chargeback/refund syncing with Razorpay APIs, raising internal–PG match rates from ~90% to 97%."
       ]
@@ -221,9 +200,9 @@ const HomePage = () => {
       id: 'skillmatics', role: "Product Management Intern", company: "Skillmatics", period: "Apr 2024 - Jun 2024", color: "yellow",
       bullets: [
         "Revamped product display pages increasing conversion by 8%.",
-        "Built bottom-nav bar improving site navigation.",
+        "Built a bottom-nav bar improving site navigation.",
         "Boosted AOV by 5% through A/B testing new features.",
-        "Created internal analytics dashboards using GA4."
+        "Created an internal analytics dashboards using GA4."
       ]
     },
     {
@@ -231,11 +210,12 @@ const HomePage = () => {
       bullets: [
         "Achieved 40% returns in FY 23-24 managing 10 Cr+ portfolio.",
         "Developed risk management strategies for derivatives.",
-        "Built internal dashboard for real-time P/L tracking."
+        "Built an internal dashboard for real-time P/L tracking."
       ]
     }
-  ].find(j => j.id === selectedJobId);
+  ];
 
+  const selectedJob = jobsData.find(j => j.id === selectedJobId);
   const [selectedEduId, setSelectedEduId] = useState('grad');
   const workExRef = useRef(null);
 
@@ -253,20 +233,87 @@ const HomePage = () => {
         {/* 1. HERO */}
         <BentoCard span={2} className="hero-mode" id="home">
           <div className="hero-container">
-             <h1 style={{marginBottom: '0.5rem'}}>Hi, I am Kunal Shroff</h1>
-             <h2 style={{fontSize: '1.8rem', marginBottom: '1.5rem', color: '#594632'}}>
-               Product Manager specializing in <span className="typewriter-text">
-                 <Typewriter words={["Fintech", "Media", "Backend Workflows", "API Integrations"]} />
-               </span>
-             </h2>
-             <p style={{fontSize: '1.15rem', maxWidth: '90%', marginBottom: '2rem'}}>
-               A product thinker with a builder’s mindset, I work across revenue, settlements, and user workflows to ship meaningful outcomes. Off the clock, I’m into football, Video games, Cricket, Stock market, and creating meme-level insights on Twitter.
-             </p>
-            <div className="action-bar" style={{marginTop: '0'}}>
-               {/* Replaced CV Download with Projects Link */}
-               <a href="#projects" className="action-btn primary"><FolderOpen size={18} /> View Projects</a>
-               <button onClick={() => setShowModal(true)} className="action-btn"><Mail size={18} /> Get in Touch</button>
+
+             {/* 1. The Profile Image */}
+             <div className="hero-image-container fade-in-up">
+                {/* Make sure to upload a photo named 'profile.jpg' into your Replit public folder! */}
+                <img 
+                  src="/profile.jpg" 
+                  alt="Kunal Shroff" 
+                  className="hero-profile-img" 
+                  onError={(e) => { e.target.style.display = 'none'; }} 
+                />
              </div>
+
+             {/* 2. The Text Content */}
+             <div className="hero-text-content fade-in-up" style={{animationDelay: '0.1s'}}>
+                 <h1 style={{marginBottom: '0.5rem'}}>Hi, I am Kunal Shroff</h1>
+                 <h2 style={{fontSize: '1.8rem', marginBottom: '1.5rem', color: '#594632'}}>
+                   Product Manager specializing in <br className="mobile-break" />
+                   <span className="typewriter-text">
+                     <Typewriter words={["Fintech", "Media", "Backend Workflows", "API Integrations"]} />
+                   </span>
+                 </h2>
+                 <p style={{fontSize: '1.15rem', maxWidth: '90%', marginBottom: '2rem'}}>
+                   A product thinker with a builder’s mindset, I work across revenue, settlements, and user workflows to ship meaningful outcomes. Off the clock, I’m into football, Video games, Cricket, Stock market, and creating meme-level insights on Twitter.
+                 </p>
+                {/* --- CENTER ALIGNED BUTTON BAR --- */}
+                 <div style={{ 
+                   display: 'flex', 
+                   justifyContent: 'center', /* This centers the buttons! */
+                   flexWrap: 'wrap',
+                   gap: '16px', 
+                   marginTop: '2rem', 
+                   width: '100%' 
+                 }}>
+
+                   <a href="#projects" style={{ 
+                     display: 'flex', 
+                     alignItems: 'center', 
+                     justifyContent: 'center', 
+                     gap: '8px', 
+                     padding: '12px 0', 
+                     backgroundColor: '#E67847', 
+                     color: '#fff', 
+                     borderRadius: '12px', 
+                     textDecoration: 'none', 
+                     fontWeight: '600', 
+                     fontSize: '0.95rem', 
+                     whiteSpace: 'nowrap', 
+                     width: '160px', /* Explicit matching width */
+                     boxSizing: 'border-box',
+                     border: '1px solid #E67847', 
+                     cursor: 'pointer' 
+                   }}>
+                     <FolderOpen size={18} /> View Projects
+                   </a>
+
+                   <button onClick={() => setShowModal(true)} style={{ 
+                     all: 'unset', /* Nukes Vite's hidden global button defaults */
+                     display: 'flex', 
+                     alignItems: 'center', 
+                     justifyContent: 'center', 
+                     gap: '8px', 
+                     padding: '12px 0', 
+                     backgroundColor: '#fff', 
+                     color: '#E67847', 
+                     borderRadius: '12px', 
+                     border: '1px solid #E67847', 
+                     fontWeight: '600', 
+                     fontSize: '0.95rem', 
+                     whiteSpace: 'nowrap', 
+                     width: '160px', /* Explicit matching width */
+                     boxSizing: 'border-box',
+                     cursor: 'pointer', 
+                     fontFamily: 'inherit'
+                   }}>
+                     <Mail size={18} /> Get in Touch
+                   </button>
+
+                 </div>
+               
+             </div>
+
           </div>
         </BentoCard>
 
@@ -286,6 +333,10 @@ const HomePage = () => {
                <div className="icon-box"><TrendingUp size={20} color="#10b981" /></div>
                <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+5% GMV</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>WhatsApp Consent System</div></div>
             </div>
+            <div className="impact-item" onClick={() => handleImpactClick('impactguru')} style={{cursor:'pointer'}}>
+               <div className="icon-box"><Users size={20} color="#10b981" /></div>
+               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+3% Leads</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>Poc Management System</div></div>
+            </div>
           </div>
         </BentoCard>
 
@@ -297,29 +348,50 @@ const HomePage = () => {
           </div>
           <div className="split-timeline">
             <div className="timeline-list">
-              {['midday','impactguru', 'skillmatics', 'laaj'].map((id) => {
-                 const job = [
-                    { id: 'midday', role: "Associate Product Manager", company: "Mid-day", period: "Nov 2025 - Present" },
-                    { id: 'impactguru', role: "Associate Product Manager", company: "Impactguru", period: "Oct 2024 - Nov 2025" },
-                    { id: 'skillmatics', role: "Product Management Intern", company: "Skillmatics", period: "Apr 2024 - Jun 2024" },
-                    { id: 'laaj', role: "Assistant Portfolio Manager", company: "Laaj International", period: "Mar 2021 - Feb 2024" }
-                 ].find(j => j.id === id);
-
-                 return (
-                  <button key={job.id} className={`timeline-item-btn ${selectedJobId === job.id ? 'active' : ''}`} onClick={() => setSelectedJobId(job.id)}>
+              {jobsData.map((job) => (
+                  <button 
+                    key={job.id} 
+                    className={`timeline-item-btn ${selectedJobId === job.id ? 'active' : ''}`} 
+                    onClick={() => setSelectedJobId(selectedJobId === job.id ? null : job.id)}
+                  >
                     <div className="timeline-circle"></div>
-                    <div style={{fontWeight: '700', color: '#1f2937', fontSize: '1.1rem'}}>{job.role}</div>
-                    <div style={{fontSize: '0.95rem', color: '#E67847', marginBottom:'0.25rem', fontWeight:'600'}}>{job.company}</div>
-                    <div style={{fontSize: '0.85rem', color: '#6b7280'}}>{job.period}</div>
+
+                    {/* --- NEW HIERARCHY: Brand First, Role Second --- */}
+                    <div style={{fontWeight: '700', color: '#E67847', fontSize: '1.2rem', marginBottom: '0.15rem'}}>{job.company}</div>
+                    <div style={{fontWeight: '600', color: '#374151', fontSize: '0.95rem', marginBottom:'0.25rem'}}>{job.role}</div>
+                    <div style={{fontSize: '0.89rem', color: '#6b7280'}}>{job.period}</div>
+
+                    {/* --- MOBILE ACCORDION CONTENT --- */}
+                    <div className="mobile-achievements">
+                      <div style={{fontWeight:'bold', fontSize:'1rem', marginTop:'1rem', marginBottom:'0.5rem', color:'#1f2937', borderTop:'1px solid rgba(230, 120, 71, 0.2)', paddingTop:'0.75rem'}}>
+                        Key Achievements
+                      </div>
+                      <ul style={{paddingLeft:'1.2rem', margin:0, textAlign:'left', color:'#4b5563'}}>
+                        {job.bullets.map((b, i) => (
+                          <li key={i} style={{marginBottom:'0.5rem', lineHeight:'1.5', fontSize:'0.95rem', fontWeight:'normal'}}>{b}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </button>
-                 );
-              })}
+              ))}
             </div>
-            <div className={`sticky-note ${selectedJob.color}`}>
-               <div style={{fontWeight:'bold', fontSize:'1.3rem', marginBottom:'1.5rem', borderBottom:'1px solid rgba(0,0,0,0.1)', paddingBottom:'0.5rem'}}>Key Achievements</div>
-               <ul style={{paddingLeft:'1.2rem', margin:0}}>
-                 {selectedJob.bullets.map((b, i) => (<li key={i} style={{marginBottom:'0.75rem', lineHeight:'1.6', fontSize:'1rem'}}>{b}</li>))}
-               </ul>
+
+            {/* --- DESKTOP STICKY NOTE --- */}
+            <div className="desktop-sticky-note">
+              {selectedJob ? (
+                <div className={`sticky-note ${selectedJob.color}`}>
+                   <div style={{fontWeight:'bold', fontSize:'1.3rem', marginBottom:'1.5rem', borderBottom:'1px solid rgba(0,0,0,0.1)', paddingBottom:'0.5rem'}}>Key Achievements</div>
+                   <ul style={{paddingLeft:'1.2rem', margin:0}}>
+                     {selectedJob.bullets.map((b, i) => (<li key={i} style={{marginBottom:'0.75rem', lineHeight:'1.6', fontSize:'1rem'}}>{b}</li>))}
+                   </ul>
+                </div>
+              ) : (
+                <div className="sticky-note" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', minHeight: '300px', textAlign: 'center', border: '2px dashed rgba(230, 120, 71, 0.2)', background: 'transparent', boxShadow: 'none' }}>
+                   <Briefcase size={32} style={{ marginBottom: '1rem', color: '#E67847', opacity: 0.5 }} />
+                   <div style={{ fontSize: '1.1rem', fontWeight: '600', color: '#594632' }}>Select an experience</div>
+                   <div style={{ fontSize: '0.9rem' }}>Click on a role to view key achievements</div>
+                </div>
+              )}
             </div>
           </div>
         </BentoCard>
@@ -352,6 +424,31 @@ const HomePage = () => {
             ))}
           </div>
         </BentoCard>  
+
+        {/* --- MOVED UP: DECK VAULT --- */}
+        <BentoCard span={3} id="deck-vault">
+           <div className="section-icon-header"><div className="section-icon-box"><Layers size={20} /></div><h2>Deck Vault</h2></div>
+           <div 
+              className={`deck-scroll-container ${isDeckScrolling ? 'is-scrolling' : ''}`}
+              onScroll={handleDeckScroll}
+            >
+             {[
+               { title: "BD POC Management (PRD)", desc: "A detailed PRD for the feature", link: "https://whimsical.com/poc-management-VucfKmRkZScPBvVP4TZKtP", thumb: "/thumb-bd.png" },
+               { title: "Competitor Analysis", desc: "Deep dive into market landscape & feature gaps.", link: "https://whimsical.com/mid-day-homepage-TY9JfZv6ogYsG3jVwpNEqy", thumb: "/thumb-competitor.png" },
+               { title: "Analyzing User Experience", desc: "Usability Heuristics for User Interface Design.", link: "/google-photos.pdf", thumb: "/thumb-photos.png" },
+               { title: "Shopping assistant for Flipkart", desc: "Building AI chatbot for Flipkart", link: "/flipkart.pdf", thumb: "/thumb-flipkart.png" },
+               { title: "Product Teardown- Netflix", desc: "A detailed analysis of New User Onboarding by Netflix.", link: "/netflix.pdf", thumb: "/netflix.png" }
+             ].map((d, i) => (
+               <a key={i} href={d.link} target="_blank" rel="noopener noreferrer" className="deck-card-large" style={{textDecoration: 'none', display: 'block', cursor: 'pointer', color: 'inherit'}}>
+                  <div className="deck-thumb-large" style={{ padding: 0, overflow: 'hidden', background: '#fff', border: '1px solid rgba(230, 120, 71, 0.1)' }}>
+                     <img src={d.thumb} alt={d.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display='none'; e.target.parentNode.style.display='flex'; e.target.parentNode.innerText='Img Not Found'; e.target.parentNode.style.fontSize='0.8rem'; e.target.parentNode.style.color='#9ca3af'; }} />
+                  </div>
+                  <div style={{fontWeight:'700', fontSize:'1.1rem', marginBottom:'0.25rem', color:'#1f2937'}}>{d.title}</div>
+                  <div style={{fontSize:'0.9rem', color:'#6b7280', lineHeight: '1.4'}}>{d.desc}</div>
+               </a>
+             ))}
+           </div>
+        </BentoCard>
 
         {/* 6. CERTIFICATIONS */}
         <BentoCard span={1} id="certifications">
@@ -408,29 +505,7 @@ const HomePage = () => {
              </div>
            </div>
         </BentoCard>
-
-        {/* 7. DECK VAULT */}
-        <BentoCard span={3}>
-           <div className="section-icon-header"><div className="section-icon-box"><Layers size={20} /></div><h2>Deck Vault</h2></div>
-           <div className="deck-scroll-container">
-             {[
-               { title: "BD POC Management (PRD)", desc: "A detailed PRD for the feature", link: "https://whimsical.com/poc-management-VucfKmRkZScPBvVP4TZKtP", thumb: "/thumb-bd.png" },
-               { title: "Competitor Analysis", desc: "Deep dive into market landscape & feature gaps.", link: "https://whimsical.com/mid-day-homepage-TY9JfZv6ogYsG3jVwpNEqy", thumb: "/thumb-competitor.png" },
-               { title: "Analyzing User Experience", desc: "Usability Heuristics for User Interface Design.", link: "/google-photos.pdf", thumb: "/thumb-photos.png" },
-               { title: "Shopping assistant for Flipkart", desc: "Building AI chatbot for Flipkart", link: "/flipkart.pdf", thumb: "/thumb-flipkart.png" },
-               { title: "Product Teardown- Netflix", desc: "A detailed analysis of New User Onboarding by Netflix.", link: "/netflix.pdf", thumb: "/netflix.png" }
-             ].map((d, i) => (
-               <a key={i} href={d.link} target="_blank" rel="noopener noreferrer" className="deck-card-large" style={{textDecoration: 'none', display: 'block', cursor: 'pointer', color: 'inherit'}}>
-                  <div className="deck-thumb-large" style={{ padding: 0, overflow: 'hidden', background: '#fff', border: '1px solid rgba(230, 120, 71, 0.1)' }}>
-                     <img src={d.thumb} alt={d.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display='none'; e.target.parentNode.style.display='flex'; e.target.parentNode.innerText='Img Not Found'; e.target.parentNode.style.fontSize='0.8rem'; e.target.parentNode.style.color='#9ca3af'; }} />
-                  </div>
-                  <div style={{fontWeight:'700', fontSize:'1.1rem', marginBottom:'0.25rem', color:'#1f2937'}}>{d.title}</div>
-                  <div style={{fontSize:'0.9rem', color:'#6b7280', lineHeight: '1.4'}}>{d.desc}</div>
-               </a>
-             ))}
-           </div>
-        </BentoCard>
-
+       
         {/* 8. EDUCATION */}
         <BentoCard span={3} id = "education">
           <div className="section-icon-header"><div className="section-icon-box"><GraduationCap size={24} /></div><h2>Education & Activities</h2></div>
@@ -511,7 +586,7 @@ function App() {
         <div className="gradient-bg"></div>
         <Navbar />
 
-        {/* --- NEW FLOATING CV BUTTON --- */}
+        {/* --- FLOATING CV BUTTON --- */}
         <a href="/kunal-shroff-cv.pdf" download="Kunal-Shroff-CV.pdf" className="floating-cv-btn">
           <Download size={20} />
           <span className="floating-btn-text">Download CV</span>
