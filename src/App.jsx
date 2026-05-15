@@ -249,13 +249,14 @@ const HomePage = () => {
              <div className="hero-text-content fade-in-up" style={{animationDelay: '0.1s'}}>
                  <h1 style={{marginBottom: '0.5rem'}}>Hi, I am Kunal Shroff</h1>
                  <h2 style={{fontSize: '1.8rem', marginBottom: '1.5rem', color: '#594632'}}>
-                   Product Manager specializing in <br className="mobile-break" />
+                   A Product Manager specializing in <br className="mobile-break" />
                    <span className="typewriter-text">
                      <Typewriter words={["Fintech", "Media", "Backend Workflows", "API Integrations"]} />
                    </span>
                  </h2>
                  <p style={{fontSize: '1.15rem', maxWidth: '90%', marginBottom: '2rem'}}>
-                   A product thinker with a builder’s mindset, I work across revenue, settlements, and user workflows to ship meaningful outcomes. Off the clock, I’m into football, Video games, Cricket, Stock market, and creating meme-level insights on Twitter.
+                   I’m a Product Manager with 2+ years of experience managing and scaling digital products, currently building
+                   Mid-day.com.Outside of work, I’m into football, cricket, video games, stock markets, and occasionally creating meme-    worthy insights on Twitter.
                  </p>
                 {/* --- CENTER ALIGNED BUTTON BAR --- */}
                  <div style={{ 

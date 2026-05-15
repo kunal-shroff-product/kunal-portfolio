@@ -399,12 +399,12 @@ html {
 
   /* 4. Sleeker, tighter Typography */
   h1 { font-size: 1.9rem !important; letter-spacing: -0.04em; }
-  .hero-container h2 { font-size: 1.05rem !important; margin-bottom: 0.25rem !important; }
+  .hero-container h2 { font-size: 1.05rem !important; margin-bottom: 0.65rem !important; }
   .hero-container p { 
-    font-size: 0.9rem !important; 
+    font-size: 1.10rem !important; 
     line-height: 1.4; 
-    margin-bottom: 0.75rem !important; 
-    padding: 0 0.5rem; 
+    margin-bottom: -0.25rem !important; 
+    padding: 16px 1.5 rem; 
   }
 } /* <--- Mobile block cleanly closes here */
 
