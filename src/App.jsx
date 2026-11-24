@@ -140,11 +140,12 @@ const AboutPage = () => {
          <div style={{ paddingTop: '4rem' }}>
            <h2 style={{fontSize: '2.5rem', marginBottom: '2rem', color: '#1a1a1a'}}>About Me</h2>
            <p style={{color: '#594632', fontWeight: '500', fontSize: '1.2rem', lineHeight: '1.8', maxWidth: '1300px'}}>
-             I am a product manager who thrives at the intersection of data, design, and user psychology. Currently at Mid-day, I’m leading a full-scale website revamp to enhance user experience, engagement, and content discoverability across the platform. At ImpactGuru, I led key charters across Settlements, Revenue, and the BD App, building scalable systems and automating complex financial workflows through API-driven solutions.
+             I’m a product manager who thrives at the intersection of data, design, and user psychology.
+             At LehLah, I drive product development and growth across the SaaS platform and Consumer App, focusing on creator-brand collaborations, user adoption, and revenue generation.
              <br/><br/>
-             Across organisations I’ve shipped products end-to-end from dashboards to PDP redesigns and WhatsApp-based growth systems. My work has improved conversion rates, reduced operational effort, and enhanced stability across internal and customer-facing systems. Before transitioning into product, I managed a ₹10 Cr portfolio at Laaj International, strengthening my analytical and strategic decision-making foundation.
+             Before LehLah, I led the full-scale website revamp at Mid-day, launching high-traffic event microsites and smoother sign-up flows. At ImpactGuru, I owned charters across Settlements, Revenue, and the BD App, automating complex financial workflows through API-driven solutions. Across these roles, I’ve shipped products end-to-end, from dashboards and PDP redesigns to WhatsApp-based growth systems, improving conversions and cutting operational effort. Before moving into product, I managed a ₹10 Cr portfolio at Laaj International, which built my foundation in analytical and strategic decision-making.
              <br/><br/>
-             When I'm not writing PRDs or analyzing SQL queries, you can find me debating the latest Football match. I’m also an active stock-market investor who enjoys combining product thinking with market insight.
+             When I’m not writing PRDs or digging into SQL queries, you’ll find me debating the latest football match or tracking the stock market, where I enjoy bringing product thinking and market insight together.
            </p>
          </div>
 
@@ -177,7 +178,16 @@ const HomePage = () => {
 
   const jobsData = [
     {
-      id: 'midday', role: "Associate Product Manager", company: "Mid-day", period: "Nov 2025 - Present", color: "blue",
+      id: 'lehlah', role: "Associate Product Manager", company: "LehLah", period: "Jul 2026 - Present", color: "blue",
+      bullets: [
+        "Launched a UGC campaign module integrating Meta & Shopify APIs, driving +10% app MAUs and +12% SaaS revenue.",
+        "Led one of India's first YouTube Creator Partnership Program integrations, enabling creator discovery and YouTube deliverables via official APIs.",
+        "Launched a creator referral program, growing the pool of creators eligible for paid collaborations by 6%.",
+        "Built end-to-end barter and paid collaboration workflows, cutting campaign turnaround to under 30 mins for brands and agencies."
+      ]
+    },
+    {
+      id: 'midday', role: "Associate Product Manager", company: "Mid-day", period: "Nov 2025 - Jul 2026", color: "blue",
       bullets: [
         "Owned the end-to-end website revamp, improving content structure, user flow, and engagement.",
         "Conceptualized and launched high-traffic event microsites (T20 World Cup, Valentine’s Day, IPL 2026),contributing ~2% revenue and ~3% pageviews.",
@@ -255,8 +265,7 @@ const HomePage = () => {
                    </span>
                  </h2>
                  <p style={{fontSize: '1.15rem', maxWidth: '90%', marginBottom: '2rem'}}>
-                   I’m a Product Manager with 2+ years of experience managing and scaling digital products, currently building
-                   Mid-day.com.Outside of work, I’m into football, cricket, video games, stock markets, and occasionally creating meme-    worthy insights on Twitter.
+                   I’m a Product Manager with 2+ years of experience managing and scaling digital products, currently building LehLah. Outside of work, I’m into football, cricket, video games, stock markets, and occasionally creating meme-worthy insights on Twitter.
                  </p>
                 {/* --- CENTER ALIGNED BUTTON BAR --- */}
                  <div style={{ 
@@ -322,6 +331,10 @@ const HomePage = () => {
         <BentoCard id="impact">
           <h2>Key Impact</h2>
           <div className="impact-list">
+            <div className="impact-item" onClick={() => handleImpactClick('lehlah')} style={{cursor:'pointer'}}>
+               <div className="icon-box"><TrendingUp size={20} color="#10b981" /></div>
+               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+10% MAU</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>UGC Campaign Module</div></div>
+            </div>
             <div className="impact-item" onClick={() => handleImpactClick('midday')} style={{cursor:'pointer'}}>
                <div className="icon-box"><Target size={20} color="#3b82f6" /></div>
                <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+3% Page Views</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>Event Microsites</div></div>
@@ -331,12 +344,8 @@ const HomePage = () => {
                <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+2% Revenue</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>BD App Fees Upgrade</div></div>
             </div>
             <div className="impact-item" onClick={() => handleImpactClick('impactguru')} style={{cursor:'pointer'}}>
-               <div className="icon-box"><TrendingUp size={20} color="#10b981" /></div>
-               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+5% GMV</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>WhatsApp Consent System</div></div>
-            </div>
-            <div className="impact-item" onClick={() => handleImpactClick('impactguru')} style={{cursor:'pointer'}}>
                <div className="icon-box"><Users size={20} color="#10b981" /></div>
-               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+3% Leads</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>Poc Management System</div></div>
+               <div><div style={{fontWeight:'bold', fontSize:'1.1rem', color:'#1a1a1a'}}>+3% Leads</div><div style={{fontSize:'0.8rem', color:'#6b7280'}}>POC Management System</div></div>
             </div>
           </div>
         </BentoCard>
@@ -406,8 +415,8 @@ const HomePage = () => {
           <div className="project-grid-container">
             {[
               { title: "ETF Nexus", desc: "A web-based ETF tracking tool I built to help people monitor and analyze key ETFs & their constituents in one place.", tech: ["React", "Python", "Vercel", "Vite", "API"], link: "https://etf-nexus.vercel.app" },
-              { title: "Portfolio V1", desc: "A React-powered personal website showcasing my education, skills, projects and professional journey. (This Website)", tech: ["React", "Vite", "CSS", "Vercel"] },
-              { title: "BD App Fees Upgrade", desc: "A feature prototype I designed to drive revenue and boost operational productivity of our internal agents.", tech: ["Product Strategy", "Data Visualization"],link:"https://preview--vision-into-vista.lovable.app" },
+              { title: "Portfolio V1", desc: "A React-powered personal website showcasing my education, skills, projects and professional journey. (This Website)", tech: ["React", "Vite", "CSS", "Vercel"], link: "/" },
+              { title: "Velocity – UGC Tool", desc: "A SaaS module I launched at LehLah for brands to run creator campaigns end-to-end via Meta & Shopify.", tech: ["SaaS", "Meta API", "Shopify API"], link: "https://velocity-ugc.netlify.app/" },
               { title: "Billing Module", desc: "Wireframes of OCR-driven billing module that centralizes all bills, automates data extraction and verification,", tech: ["Automation", "OCR Automation", "Fintech"], link:"https://whimsical.com/billing-module-and-settlement-auto-completion-flow-F25ygSrHFFmhEhYKvBzkc6" }
             ].map((p, i) => (
               <a key={i} href={p.link} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none', display: 'block', color: 'inherit'}}>
@@ -435,7 +444,7 @@ const HomePage = () => {
             >
              {[
                { title: "BD POC Management (PRD)", desc: "A detailed PRD for the feature", link: "https://whimsical.com/poc-management-VucfKmRkZScPBvVP4TZKtP", thumb: "/thumb-bd.png" },
-               { title: "Competitor Analysis", desc: "Deep dive into market landscape & feature gaps.", link: "https://whimsical.com/mid-day-homepage-TY9JfZv6ogYsG3jVwpNEqy", thumb: "/thumb-competitor.png" },
+               { title: "Competitor Analysis", desc: "Deep dive into market landscape & feature gaps.", link: "https://whimsical.com/kunal-s-workplace33/competitor-analysis-and-product-led-growth-insights-4jDgEqCHhv7iCmMRexKQkv", thumb: "/thumb-competitor.png" },
                { title: "Analyzing User Experience", desc: "Usability Heuristics for User Interface Design.", link: "/google-photos.pdf", thumb: "/thumb-photos.png" },
                { title: "Shopping assistant for Flipkart", desc: "Building AI chatbot for Flipkart", link: "/flipkart.pdf", thumb: "/thumb-flipkart.png" },
                { title: "Product Teardown- Netflix", desc: "A detailed analysis of New User Onboarding by Netflix.", link: "/netflix.pdf", thumb: "/netflix.png" }
@@ -560,7 +569,7 @@ const HomePage = () => {
               <div className="skill-box">
                 <div className="skill-header-row"><div className="section-icon-box"><Laptop size={20} /></div><div style={{fontWeight:'bold', fontSize:'1.2rem', color:'#1f2937'}}>Tools & Technologies</div></div>
                 <div className="skill-tag-container">
-                  {["Google Analytics", "Tableau", "Metabase", "Gupshap", "Microsoft Clarity", "Google Firebase", "Whimiscal", "JIRA", "Notion", "Lovable","Replit","Vercel", "Postman", "Excel", "SQL", "Figma"].map((s,i) => <span key={i} className="skill-tag">{s}</span>)}
+                  {["Google Analytics", "Tableau", "Metabase", "Gupshup", "Microsoft Clarity", "Google Firebase", "Whimsical", "JIRA", "Notion", "Lovable","Replit","Vercel", "Postman", "Excel", "SQL", "Figma"].map((s,i) => <span key={i} className="skill-tag">{s}</span>)}
                 </div>
               </div>
               <div className="skill-box">
